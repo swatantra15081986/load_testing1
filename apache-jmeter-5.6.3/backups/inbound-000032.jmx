@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="web_user_name" elementType="Argument">
+            <stringProp name="Argument.name">web_user_name</stringProp>
+            <stringProp name="Argument.value">jmeteruser</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="web_user_password" elementType="Argument">
+            <stringProp name="Argument.name">web_user_password</stringProp>
+            <stringProp name="Argument.value">f3b9ce76700a5862a4c1201171a69109</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="device_type" elementType="Argument">
+            <stringProp name="Argument.name">device_type</stringProp>
+            <stringProp name="Argument.value">Web</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ver" elementType="Argument">
+            <stringProp name="Argument.name">ver</stringProp>
+            <stringProp name="Argument.value">1.0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="account_id" elementType="Argument">
+            <stringProp name="Argument.name">account_id</stringProp>
+            <stringProp name="Argument.value">HogDynabook56</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="thread_user_login">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">30</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="web_user_login" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/acs-user-auth/api/v1/user/userLogin</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&#xd;
+{&#xd;
+    &quot;userName&quot;: &quot;${web_user_name}&quot;,&#xd;
+    &quot;password&quot;: &quot;${web_user_password}&quot;&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_web_user_login" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+              <stringProp name="0"></stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">web_auth_token</stringProp>
+            <stringProp name="RegexExtractor.regex">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,&quot;responseObject&quot;:{&quot;id&quot;:195,&quot;userId&quot;:&quot;85f52fdd-7ea8-49fd-a5d3-069736e7b899&quot;,&quot;userName&quot;:&quot;jmeteruser&quot;,&quot;role&quot;:1,&quot;userRoles&quot;:{&quot;id&quot;:1,&quot;role&quot;:&quot;acs-admin&quot;,&quot;roleType&quot;:2,&quot;roleDescr&quot;:&quot;ACS Super admin&quot;,&quot;mobile&quot;:1,&quot;web&quot;:1,&quot;status&quot;:1,&quot;createTime&quot;:1691738299000,&quot;defaultLandingPage&quot;:18,&quot;defaultLandingPageUrl&quot;:&quot;/orders/viewAllOrders&quot;,&quot;roleTypeDesc&quot;:&quot;Admin&quot;},&quot;firstName&quot;:&quot;Swatantra&quot;,&quot;lastName&quot;:&quot;Srivastava&quot;,&quot;tokenString&quot;:&quot;(.+?)&quot;,&quot;refreshTokenString&quot;:</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+            <stringProp name="BeanShellAssertion.query">${__setProperty(web_auth_token, ${web_auth_token})};</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="thread_product" enabled="true">
+        <intProp name="ThreadGroup.num_threads">3000</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="product_upload" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/omni/api/v1/product/createProducts</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+    {&#xd;
+        &quot;attributes&quot;: [&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 1,&#xd;
+                &quot;attributeValue&quot;: &quot;UNRESTRICTED&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;TransportationCategory&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 3,&#xd;
+                &quot;attributeValue&quot;: &quot;Each&quot;,&#xd;
+                &quot;inputType&quot;: &quot;DROP_DOWN&quot;,&#xd;
+                &quot;inputValues&quot;: &quot;Box,Bundle,Carton,Case,Each,Kit,Pack,Pad,Roll,Set,BDL,BAG,BNDL,CTN,EA,PK,SHT&quot;,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;UOM&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 4,&#xd;
+                &quot;attributeValue&quot;: &quot;10&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;Min&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 5,&#xd;
+                &quot;attributeValue&quot;: &quot;100&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;Max&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 6,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;EXPIRY DATE REQUIRED&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 7,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;MINIMUM EXPIRATION DAYS&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 8,&#xd;
+                &quot;attributeValue&quot;: &quot;1.2&quot;,&#xd;
+                &quot;inputType&quot;: &quot;DECIMAL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;WEIGHT&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 9,&#xd;
+                &quot;attributeValue&quot;: &quot;1&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;PACKAGE_TYPE&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 10,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;URL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;IMAGES&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 11,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;URL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;VidEOS&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 12,&#xd;
+                &quot;attributeValue&quot;: &quot;35&quot;,&#xd;
+                &quot;inputType&quot;: &quot;DECIMAL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;UNIT_PRICE&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 13,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;Min Bulk Quantity&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 14,&#xd;
+                &quot;attributeValue&quot;: &quot;Brand&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+&#xd;
+              &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Brand&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 15,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;URL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Thumbnail&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 16,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;Lot Number&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 22,&#xd;
+                &quot;attributeValue&quot;: &quot;API_Prod_Update01RAK&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;${customer_sku}&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 23,&#xd;
+                &quot;attributeValue&quot;: &quot;10&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;L&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 24,&#xd;
+                &quot;attributeValue&quot;: &quot;11&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;W&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 25,&#xd;
+                &quot;attributeValue&quot;: &quot;12&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;H&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 26,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Serialize Pack&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 27,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Serials Count&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 28,&#xd;
+                &quot;attributeValue&quot;: &quot;United States&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Country Of Origin&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 29,&#xd;
+                &quot;attributeValue&quot;: &quot;7654567&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;HS Code&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 30,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: true,&#xd;
+                &quot;attribute&quot;: &quot;Reboxing Allow&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 32,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Pack Box Instructions&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 33,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Void Fill Instructions&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 34,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Product Instructions&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 35,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Label Instructions&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 36,&#xd;
+                &quot;attributeValue&quot;: &quot;Deptnames07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;DepartmentCode&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 37,&#xd;
+                &quot;attributeValue&quot;: &quot;Dept07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;DepartmentName&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 38,&#xd;
+                &quot;attributeValue&quot;: &quot;VendorCodes07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;VendorCodes&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 39,&#xd;
+                &quot;attributeValue&quot;: &quot;VendorNames07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;VendorNames&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 40,&#xd;
+                &quot;attributeValue&quot;: &quot;PromoCodes07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PromotionCodes&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 41,&#xd;
+                &quot;attributeValue&quot;: &quot;promotion07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PromotionNames&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 42,&#xd;
+                &quot;attributeValue&quot;: &quot;10-04-2024&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;EffectiveDate&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 43,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;ApprovalRequired&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 44,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;IsBackOrderable&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 45,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;IsAllocated&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 46,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;IsDropShip&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 47,&#xd;
+                &quot;attributeValue&quot;: &quot;20-04-2024&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;EndOfLifeDate&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 48,&#xd;
+                &quot;attributeValue&quot;: &quot;PrintOnDemand07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PrintOnDemand&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 49,&#xd;
+                &quot;attributeValue&quot;: &quot;VariablePrintOnDemand07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;VariablePrintOnDemand&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 50,&#xd;
+                &quot;attributeValue&quot;: &quot;key07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Keywords&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 51,&#xd;
+                &quot;attributeValue&quot;: &quot;Source07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Source&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 52,&#xd;
+                &quot;attributeValue&quot;: &quot;PrintSpectFinishing07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PrintSpec Finishing&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 53,&#xd;
+                &quot;attributeValue&quot;: &quot;PrintSpecInk07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PrintSpec Ink&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 54,&#xd;
+                &quot;attributeValue&quot;: &quot;material07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;PrintSpec Materials&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 55,&#xd;
+                &quot;attributeValue&quot;: &quot;Program07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Program Name&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 56,&#xd;
+                &quot;attributeValue&quot;: &quot;ItemClass07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;ItemClass&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 57,&#xd;
+                &quot;attributeValue&quot;: &quot;printSpec07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Print Specs&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 58,&#xd;
+                &quot;attributeValue&quot;: &quot;Segment07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Consumer Segment&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 59,&#xd;
+                &quot;attributeValue&quot;: &quot;Job_Number07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Job Number&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 60,&#xd;
+                &quot;attributeValue&quot;: &quot;XL&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Size&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 61,&#xd;
+                &quot;attributeValue&quot;: &quot;Type07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Type&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 62,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Active&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 63,&#xd;
+                &quot;attributeValue&quot;: &quot;UOM07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;UOMQty&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 64,&#xd;
+                &quot;attributeValue&quot;: &quot;Cost07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;UnitCost&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 65,&#xd;
+                &quot;attributeValue&quot;: &quot;B&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Divison&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 66,&#xd;
+                &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+                &quot;inputType&quot;: &quot;NUMBER_GREATER_THAN_ZERO&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Height&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 67,&#xd;
+                &quot;attributeValue&quot;: &quot;JobDescript07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Job Description&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 68,&#xd;
+                &quot;attributeValue&quot;: &quot;Code07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Project Code&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 69,&#xd;
+                &quot;attributeValue&quot;: &quot;CostCente07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Cost Center&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 71,&#xd;
+                &quot;attributeValue&quot;: &quot;0&quot;,&#xd;
+                &quot;inputType&quot;: &quot;BOOLEAN&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Secured&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 72,&#xd;
+                &quot;attributeValue&quot;: &quot;12&quot;,&#xd;
+                &quot;inputType&quot;: &quot;DECIMAL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Mark Up&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 73,&#xd;
+                &quot;attributeValue&quot;: 300,&#xd;
+                &quot;inputType&quot;: &quot;DECIMAL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Sale Price&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 75,&#xd;
+                &quot;attributeValue&quot;: &quot;12.47&quot;,&#xd;
+                &quot;inputType&quot;: &quot;DECIMAL&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Test ATT1&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 76,&#xd;
+                &quot;attributeValue&quot;: &quot;Test&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Test I&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;attributeKey&quot;: 77,&#xd;
+                &quot;attributeValue&quot;: &quot;Medicine07&quot;,&#xd;
+                &quot;inputType&quot;: &quot;TEXT&quot;,&#xd;
+                &quot;inputValues&quot;: null,&#xd;
+                &quot;mandatory&quot;: false,&#xd;
+                &quot;attribute&quot;: &quot;Medicine&quot;,&#xd;
+                &quot;error&quot;: &quot;&quot;&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;productDesc&quot;: &quot;${product_desc}&quot;,&#xd;
+        &quot;storageCategory&quot;: &quot;1&quot;,&#xd;
+        &quot;productName&quot;: &quot;${product_name}&quot;,&#xd;
+        &quot;productType&quot;: &quot;1&quot;,&#xd;
+        &quot;productCategory&quot;: &quot;1&quot;,&#xd;
+        &quot;sku&quot;: &quot;${product_sku}&quot;,&#xd;
+        &quot;accountId&quot;: &quot;${account_id}&quot;,&#xd;
+        &quot;isSerializedInventory&quot;: true,&#xd;
+        &quot;isNonScannableProduct&quot;: false,&#xd;
+        &quot;isSIOBProduct&quot;: true,&#xd;
+        &quot;isShipAlone&quot;: true,&#xd;
+        &quot;productSerialRange&quot;: true,&#xd;
+        &quot;productMappings&quot;: [],&#xd;
+        &quot;upc&quot;: [&#xd;
+            &quot;${upc}&quot;&#xd;
+        ],&#xd;
+        &quot;udf1&quot;: &quot;UDF1&quot;,&#xd;
+        &quot;udf2&quot;: &quot;UDF2&quot;,&#xd;
+        &quot;udf3&quot;: &quot;UDF3&quot;,&#xd;
+        &quot;udf4&quot;: &quot;UDF4&quot;,&#xd;
+        &quot;udf5&quot;: &quot;UDF5&quot;,&#xd;
+        &quot;packageUOMFactor&quot;: 15,&#xd;
+        &quot;productFcMappings&quot;: []&#xd;
+    }&#xd;
+]&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="csv_product_upload" enabled="true">
+            <stringProp name="filename">C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/performance_load/acs-2/inbound/product_details.csv</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="variableNames">product_sku, product_name, product_desc,  upc, product_desc, customer_sku</stringProp>
+            <boolProp name="ignoreFirstLine">false</boolProp>
+            <stringProp name="delimiter">,</stringProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_product_upload" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="auth-token" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${__property(web_auth_token)}</stringProp>
+              </elementProp>
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="0"></stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>false</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+        <boolProp name="useGroupName">true</boolProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
