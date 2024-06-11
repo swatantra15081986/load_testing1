@@ -3,6 +3,6 @@
     "init": "^0.1.2"
   },
   "scripts": {
-   "load_testing_acs2": "jmeter -n -t \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/acs-2/outbound/outbound.jmx\" -l \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/acs-2/outbound/outbound_result.csv\" -j \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/acs-2/outbound/jmeter.log\" -e -o \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/acs-2/outbound/outbound_report\""
+   "load_testing_acs2": "jmeter -n -t \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/acs-2/outbound/outbound.jmx\" -l \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/acs-2/outbound/outbound_result.csv\" -j \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/acs-2/outbound/jmeter.log\" -e -o \"C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/acs-2/outbound/outbound_report\""
   }
 }
