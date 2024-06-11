@@ -69,6 +69,7 @@ pipeline {
                     bat 'npm i'
                     bat "node utilities/delete-outbound-report.js"
                     bat "node utilities/create-outbound-report.js"
+                    bat "node utilities/delete-csv-report.js"
                     try {
                         bat 'npm run %Script%'
                     } catch (err) {
