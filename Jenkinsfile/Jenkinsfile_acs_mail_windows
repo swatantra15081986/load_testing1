@@ -67,6 +67,8 @@ pipeline {
                     bat "npm cache clean --force"
                     bat 'node --version'
                     bat 'npm i'
+                    bat "node utilities/delete-outbound-report.js"
+                    bat "node utilities/create-outbound-report.js"
                     try {
                         bat 'npm run load_testing_acs2' // Update %Script% to the actual script name
                     } catch (err) {
