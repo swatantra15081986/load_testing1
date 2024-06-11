@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="web_user_name" elementType="Argument">
+            <stringProp name="Argument.name">web_user_name</stringProp>
+            <stringProp name="Argument.value">jmeteruser</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="web_user_password" elementType="Argument">
+            <stringProp name="Argument.name">web_user_password</stringProp>
+            <stringProp name="Argument.value">f3b9ce76700a5862a4c1201171a69109</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="device_type" elementType="Argument">
+            <stringProp name="Argument.name">device_type</stringProp>
+            <stringProp name="Argument.value">Web</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="ver" elementType="Argument">
+            <stringProp name="Argument.name">ver</stringProp>
+            <stringProp name="Argument.value">1.0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="account_id" elementType="Argument">
+            <stringProp name="Argument.name">account_id</stringProp>
+            <stringProp name="Argument.value">autoclient</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="mobile_device_type" elementType="Argument">
+            <stringProp name="Argument.name">mobile_device_type</stringProp>
+            <stringProp name="Argument.value">Android</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="order_number_prefix" elementType="Argument">
+            <stringProp name="Argument.name">order_number_prefix</stringProp>
+            <stringProp name="Argument.value">O_</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="container_number_prefix" elementType="Argument">
+            <stringProp name="Argument.name">container_number_prefix</stringProp>
+            <stringProp name="Argument.value">CONTAINER_</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="pack_station" elementType="Argument">
+            <stringProp name="Argument.name">pack_station</stringProp>
+            <stringProp name="Argument.value">DFWX1-PACK_202405280939100645951</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="user_creation_prefix" elementType="Argument">
+            <stringProp name="Argument.name">user_creation_prefix</stringProp>
+            <stringProp name="Argument.value">USER_</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="client_id" elementType="Argument">
+            <stringProp name="Argument.name">client_id</stringProp>
+            <stringProp name="Argument.value">autoclient1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="carrier_name" elementType="Argument">
+            <stringProp name="Argument.name">carrier_name</stringProp>
+            <stringProp name="Argument.value">FEDEX</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="client_number" elementType="Argument">
+            <stringProp name="Argument.name">client_number</stringProp>
+            <stringProp name="Argument.value">63</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="warehouse_location" elementType="Argument">
+            <stringProp name="Argument.name">warehouse_location</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="thread_login">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="web_user_login" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/acs-user-auth/api/v1/user/userLogin</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&#xd;
+{&#xd;
+    &quot;userName&quot;: &quot;${web_user_name}&quot;,&#xd;
+    &quot;password&quot;: &quot;${web_user_password}&quot;&#xd;
+}&#xd;
+</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_web_user_login" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+              <stringProp name="0"></stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">web_auth_token</stringProp>
+            <stringProp name="RegexExtractor.regex">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,&quot;responseObject&quot;:{&quot;id&quot;:195,&quot;userId&quot;:&quot;85f52fdd-7ea8-49fd-a5d3-069736e7b899&quot;,&quot;userName&quot;:&quot;jmeteruser&quot;,&quot;role&quot;:1,&quot;userRoles&quot;:{&quot;id&quot;:1,&quot;role&quot;:&quot;acs-admin&quot;,&quot;roleType&quot;:2,&quot;roleDescr&quot;:&quot;ACS Super admin&quot;,&quot;mobile&quot;:1,&quot;web&quot;:1,&quot;status&quot;:1,&quot;createTime&quot;:1691738299000,&quot;defaultLandingPage&quot;:18,&quot;defaultLandingPageUrl&quot;:&quot;/orders/viewAllOrders&quot;,&quot;roleTypeDesc&quot;:&quot;Admin&quot;},&quot;firstName&quot;:&quot;Swatantra&quot;,&quot;lastName&quot;:&quot;Srivastava&quot;,&quot;tokenString&quot;:&quot;(.+?)&quot;,&quot;refreshTokenString&quot;:</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+            <stringProp name="BeanShellAssertion.query">${__setProperty(web_auth_token, ${web_auth_token})};</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="thread_outbound">
+        <intProp name="ThreadGroup.num_threads">100</intProp>
+        <intProp name="ThreadGroup.ramp_time">0</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <stringProp name="LoopController.loops">1</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="order_creation">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/omni/api/v1/order/createOrder</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;orderType&quot;: &quot;22&quot;,&#xd;
+    &quot;deliverDutyStatus&quot;: &quot;DDU&quot;,&#xd;
+    &quot;channelName&quot;: &quot;autochannel&quot;,&#xd;
+    &quot;referenceId&quot;: &quot;${order_number_prefix}${__time(HHmmssSSS)}_${__threadNum}&quot;,&#xd;
+    &quot;shipToName&quot;: &quot;ASC2_order1&quot;,&#xd;
+    &quot;shipToAddress&quot;: &quot;200 E El Camino Real, Mountain View, CA 94040&quot;,&#xd;
+    &quot;shipToAttention&quot;: &quot;&quot;,&#xd;
+    &quot;shipToCity&quot;: &quot;Mountain View&quot;,&#xd;
+    &quot;shipToCountry&quot;: &quot;USA&quot;,&#xd;
+    &quot;shipToCounty&quot;: &quot;Anderson&quot;,&#xd;
+    &quot;shipToEmail&quot;: &quot;swatantra.srivastava@advatix.com&quot;,&#xd;
+    &quot;shipToMobile&quot;: &quot;898-989-8989&quot;,&#xd;
+    &quot;shipToState&quot;: &quot;CA&quot;,&#xd;
+    &quot;postalCode&quot;: &quot;94040&quot;,&#xd;
+    &quot;billToName&quot;: &quot;ASC2_order1&quot;,&#xd;
+    &quot;billToAddress&quot;: &quot;3800 Charbonneau Drive&quot;,&#xd;
+    &quot;billToAttention&quot;: &quot;&quot;,&#xd;
+    &quot;billToAddress2&quot;: &quot;3800 Charbonneau Drive&quot;,&#xd;
+    &quot;billToCity&quot;: &quot;Mountain View&quot;,&#xd;
+    &quot;billToCountry&quot;: &quot;USA&quot;,&#xd;
+    &quot;billToCounty&quot;: &quot;Anderson&quot;,&#xd;
+    &quot;billToEmail&quot;: &quot;ksingh@advatix.com&quot;,&#xd;
+    &quot;billToMobile&quot;: &quot;9910266316&quot;,&#xd;
+    &quot;billToState&quot;: &quot;CA&quot;,&#xd;
+    &quot;billToPostal&quot;: &quot;10014&quot;,&#xd;
+    &quot;instructions&quot;: &quot;&quot;,&#xd;
+    &quot;shipperId&quot;: 1,&#xd;
+    &quot;acsClientId&quot;: &quot;${client_id}&quot;,&#xd;
+    &quot;packingInstructions&quot;: &quot;&quot;,&#xd;
+    &quot;driverInstructions&quot;: &quot;&quot;,&#xd;
+    &quot;companyName&quot;: &quot;&quot;,&#xd;
+    &quot;lob&quot;: 2,&#xd;
+    &quot;clientName&quot;: &quot;${client_id}&quot;,&#xd;
+    &quot;clientId&quot;: &quot;${client_id}&quot;,&#xd;
+    &quot;accountId&quot;: &quot;autocustomer79&quot;,&#xd;
+    &quot;tags&quot;: &quot;&quot;,&#xd;
+    &quot;shippingCost&quot;: &quot;&quot;,&#xd;
+    &quot;totalDiscount&quot;: &quot;&quot;,&#xd;
+    &quot;totalTax&quot;: &quot;&quot;,&#xd;
+    &quot;giftNoteFlag&quot;: &quot;&quot;,&#xd;
+    &quot;giftNote&quot;: &quot;&quot;,&#xd;
+    &quot;addtionalCharges&quot;: &quot;&quot;,&#xd;
+    &quot;shipByDate&quot;: &quot;&quot;,&#xd;
+    &quot;addressType&quot;: &quot;Residential&quot;,&#xd;
+    &quot;carrier&quot;: &quot;&quot;,&#xd;
+    &quot;serviceType&quot;: &quot;&quot;,&#xd;
+    &quot;pickupDate&quot;: &quot;&quot;,&#xd;
+    &quot;orderReleaseClassification&quot;: &quot;&quot;,&#xd;
+    &quot;jobNumber&quot;: &quot;&quot;,&#xd;
+    &quot;jobDescription&quot;: &quot;&quot;,&#xd;
+    &quot;projectCode&quot;: &quot;&quot;,&#xd;
+    &quot;costCenter&quot;: &quot;&quot;,&#xd;
+    &quot;department&quot;: &quot;&quot;,&#xd;
+    &quot;udf1&quot;: &quot;&quot;,&#xd;
+    &quot;udf2&quot;: &quot;&quot;,&#xd;
+    &quot;udf3&quot;: &quot;&quot;,&#xd;
+    &quot;udf4&quot;: &quot;&quot;,&#xd;
+    &quot;udf5&quot;: &quot;&quot;,&#xd;
+    &quot;orderItems&quot;: [&#xd;
+        {&#xd;
+            &quot;sku&quot;: &quot;SKU1_AUTO&quot;,&#xd;
+            &quot;serials&quot;: null,&#xd;
+            &quot;isSerializedInventory&quot;: 0,&#xd;
+            &quot;quantity&quot;: 1,&#xd;
+            &quot;price&quot;: &quot;1.20&quot;,&#xd;
+            &quot;image&quot;: &quot;&quot;,&#xd;
+            &quot;parentProductId&quot;: &quot;&quot;,&#xd;
+            &quot;productTypeId&quot;: 1,&#xd;
+            &quot;tax&quot;: null,&#xd;
+            &quot;productName&quot;: null,&#xd;
+            &quot;orginalQuantity&quot;: null,&#xd;
+            &quot;taxApply&quot;: null&#xd;
+        }&#xd;
+    ],&#xd;
+    &quot;attributes&quot;: [&#xd;
+        {&#xd;
+            &quot;attributeKey&quot;: &quot;&quot;,&#xd;
+            &quot;attributeValue&quot;: &quot;&quot;,&#xd;
+            &quot;attributeDesc&quot;: &quot;&quot;&#xd;
+        }&#xd;
+    ]&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_order_creation" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="auth-token" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${__property(web_auth_token)}</stringProp>
+              </elementProp>
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_order_number" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">order_number</stringProp>
+            <stringProp name="RegexExtractor.regex">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,&quot;responseObject&quot;:&quot;Order Created Successfully (.+?)&quot;,&quot;orderNumber&quot;:&quot;(.+?)&quot;}</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_user_creation" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/acs-user-auth/api/v1/user/createUser</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;client&quot;: [&#xd;
+        &quot;${client_number}&quot;&#xd;
+    ],&#xd;
+    &quot;customer&quot;: [],&#xd;
+    &quot;confirmPassword&quot;: &quot;${web_user_password}&quot;,&#xd;
+    &quot;firstName&quot;: &quot;Swatantra&quot;,&#xd;
+    &quot;lastName&quot;: &quot;Srivastava&quot;,&#xd;
+    &quot;location&quot;: [&#xd;
+        &quot;${warehouse_location}&quot;&#xd;
+    ],&#xd;
+    &quot;password&quot;: &quot;${web_user_password}&quot;,&#xd;
+    &quot;roleId&quot;: &quot;8&quot;,&#xd;
+    &quot;status&quot;: &quot;1&quot;,&#xd;
+    &quot;userEmail&quot;: &quot;swatantra.srivastava@advatix.com&quot;,&#xd;
+    &quot;userName&quot;: &quot;${user_creation_prefix}${__time(YMMddHHmmssSSS)}_${__threadNum}&quot;,&#xd;
+    &quot;userRole&quot;: &quot;Associate/Pick/Pack&quot;,&#xd;
+    &quot;userType&quot;: &quot;ACS&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_app_login" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${__property(web_auth_token)}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_app_token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">app_user_name</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;,&quot;userName&quot;:&quot;(.+?)&quot;,&quot;status&quot;:1</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+            <stringProp name="BeanShellAssertion.query">${__setProperty(app_user_name, ${app_user_name})};</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_login" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/acs-user-auth/api/v1/user/userLogin</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;password&quot;: &quot;${web_user_password}&quot;,&#xd;
+    &quot;userName&quot;: &quot;${app_user_name}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_app_login" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${mobile_device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_app_token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">mobile_auth_token</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;tokenString&quot;:&quot;(.+?)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+            <stringProp name="BeanShellAssertion.query">${__setProperty(mobile_auth_token, ${mobile_auth_token})};</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="container_creation" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/acs-shipper-services/api/v1/container/createContainer</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{ &quot;warehouseLocation&quot;: &quot;1&quot;, &quot;barcode&quot;: &quot;${container_number_prefix}${__time(YMMddHHmmssSSS)}_${__threadNum}&quot;, &quot;containerName&quot;: &quot;${container_number_prefix}${__time(YMMddHHmmssSSS)}_${__threadNum}&quot;, &quot;containerType&quot;: 1, &quot;numberOfContainerReq&quot;: &quot;1&quot;, &quot;productType&quot;: &quot;2,7,8,5,4,3,1,12,9,14,13&quot;, &quot;length&quot;: &quot;1&quot;, &quot;width&quot;: &quot;1&quot;, &quot;height&quot;: &quot;1&quot;, &quot;cubic&quot;: &quot;1&quot;, &quot;maxWeight&quot;: &quot;10000000&quot;, &quot;key&quot;: &quot;WAREHOUSE&quot; }</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_container_creation" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="auth-token" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${__property(web_auth_token)}</stringProp>
+              </elementProp>
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="reg_exp_container_code" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">container_code</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;barcode&quot;:&quot;(.+?)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.match_number"></stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="create_pick_up_task" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/wave/api/v1/pickup/createPickupTasks?isSingleContainer=1</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[&#xd;
+  {&#xd;
+    &quot;orderNumber&quot;: &quot;${order_number}&quot;&#xd;
+  }&#xd;
+]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_pickup_task" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="AUTH-TOKEN" elementType="Header">
+                <stringProp name="Header.name">AUTH-TOKEN</stringProp>
+                <stringProp name="Header.value">${mobile_auth_token}</stringProp>
+              </elementProp>
+              <elementProp name="DEVICE-TYPE" elementType="Header">
+                <stringProp name="Header.name">DEVICE-TYPE</stringProp>
+                <stringProp name="Header.value">${mobile_device_type}</stringProp>
+              </elementProp>
+              <elementProp name="VER" elementType="Header">
+                <stringProp name="Header.name">VER</stringProp>
+                <stringProp name="Header.value">1.0</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="0"></stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="container_assigned" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/wave/api/v1/pickup/assignOrdersContainer</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[ { &quot;containerCode&quot;: &quot;${container_code}&quot;, &quot;orderNumber&quot;: &quot;${order_number}&quot;, &quot;pickUpType&quot;: &quot;1&quot; } ]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_container_assigned" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="auth-token" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${mobile_auth_token}</stringProp>
+              </elementProp>
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${mobile_device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-1132234392">{&quot;responseStatus&quot;:true,&quot;responseStatusCode&quot;:200,</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="submit_pick" enabled="true">
+          <stringProp name="HTTPSampler.domain">acs2-uat.advatix.net</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">/wave/api/v1/pickup/submitPickupTaskList</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[ { &quot;clientId&quot;: &quot;${client_id}&quot;, &quot;containerCode&quot;: &quot;${container_code}&quot;, &quot;expirationDate&quot;: &quot;01-01-1900&quot;, &quot;locationCode&quot;: &quot;DFWX1-Stow-Staging&quot;, &quot;lotNumber&quot;: 202412420, &quot;orderNumber&quot;: &quot;${order_number}&quot;, &quot;pickUpType&quot;: &quot;1&quot;, &quot;productId&quot;: &quot;9809&quot;, &quot;quantity&quot;: &quot;1&quot;, &quot;upcCode&quot;: &quot;upc1_auto&quot;, &quot;warehouseLocation&quot;: &quot;1&quot; } ]</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_submit_pick" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="auth-token" elementType="Header">
+                <stringProp name="Header.name">auth-token</stringProp>
+                <stringProp name="Header.value">${mobile_auth_token}</stringProp>
+              </elementProp>
+              <elementProp name="content-type" elementType="Header">
+                <stringProp name="Header.name">content-type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="device-type" elementType="Header">
+                <stringProp name="Header.name">device-type</stringProp>
+                <stringProp name="Header.value">${mobile_device_type}</stringProp>
+              </elementProp>
+              <elementProp name="ver" elementType="Header">
+                <stringProp name="Header.name">ver</stringProp>
+                <stringProp name="Header.value">${ver}</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="0"></stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">2</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+          <stringProp name="ConstantTimer.delay">3000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>false</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+            <sampleCount>true</sampleCount>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+        <boolProp name="useGroupName">true</boolProp>
+      </ResultCollector>
+      <hashTree/>
+      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="Generate Summary Results" enabled="true"/>
+      <hashTree/>
+      <BeanShellListener guiclass="TestBeanGUI" testclass="BeanShellListener" testname="BeanShell Listener" enabled="true">
+        <stringProp name="filename"></stringProp>
+        <stringProp name="parameters"></stringProp>
+        <boolProp name="resetInterpreter">false</boolProp>
+        <stringProp name="script"></stringProp>
+      </BeanShellListener>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
