@@ -70,7 +70,7 @@ pipeline {
                     bat "node utilities/delete-outbound-report.js"
                     bat "node utilities/create-outbound-report.js"
                     try {
-                        bat 'npm run load_testing_acs2' // Update %Script% to the actual script name
+                        bat 'npm run %Script%'
                     } catch (err) {
                         echo err.getMessage()
                         echo "Some test cases are getting Failed"
@@ -99,9 +99,8 @@ pipeline {
                         subject: " ${env.JOB_NAME}(${durationString}) Testing Result",
                         body: """<p><strong> Execution Time : </strong>  ${durationString}</p>
                                  <p><strong> Jenkins build run by  : </strong>  ${jenkins_build_user_name}</p>
-                                 <p><strong> List of flows covered by FRONTEND AUTOMATION in this build : </strong>  ${itemDescription}</p>
-                                 <p><strong> Automation Test Cases Result report : </strong>  <a href="${BUILD_URL}/execution/node/8/ws/3pl_cypress/reports/index.html">Frontend Automation Cucumber Test Result</a></p>
-                                 <p><strong> Automation Test Cases Video link for reference  : </strong>  <a href="${env.BUILD_URL}/execution/node/8/ws/3pl_cypress/cypress/videos/">Click here to check the videos</a></p>
+                                 <p><strong> List of flows covered by Load Testing in this build : </strong>  ${itemDescription}</p>
+                                 <p><strong> Load Testing Result report : </strong>  <a href="${BUILD_URL}/execution/node/8/ws/3pl_cypress/reports/index.html">Load Testing Test Result</a></p>
                                  <p><strong> Check logs :</strong>  <a href="${env.BUILD_URL}/console">Click here to check the console output logs</a></p> @automation_poc""",,
                         mimeType: 'text/html'
                     )
