@@ -50,6 +50,7 @@ pipeline {
         stage('LOAD TESTING') {
             steps {
                 bat "echo %CD%"
+                dir('apache-jmeter-5.6.3/bin') {  
                     bat "echo %CD%"
                     bat "npm cache clean --force"
                     bat 'node --version'
@@ -64,9 +65,7 @@ pipeline {
                     }
                 }
             }
-
-
-
+        }
 
   }
     
