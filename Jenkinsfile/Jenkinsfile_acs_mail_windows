@@ -1,34 +1,44 @@
 def startTime = System.currentTimeMillis()
+
 import java.util.concurrent.TimeUnit
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+
 def jenkinsUrl = env.JENKINS_URL
 echo "${jenkinsUrl}"
+
 def cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
 echo "userName: ${cause.userName}"
 def jenkins_build_user_name = cause.userName
+
 def get_email_for_user_id(user_id) {
     def user = hudson.model.User.get(user_id)
     return user.getProperty(hudson.tasks.Mailer.UserProperty).getAddress()
 }
+
 def jenkins_build_user_email
 def build_user_id
+
 if (cause.userName instanceof List && cause.userName.isEmpty()) {
     jenkins_build_user_email = 'timer@advatix.com'
 } else {
     build_user_id = currentBuild.rawBuild.getCauses()[0].getUserId()
     jenkins_build_user_email = get_email_for_user_id(build_user_id)
 }
+
 println "userid: ${jenkins_build_user_name}"
 println "build_user_id: ${build_user_id}"
 println "build_user_email: ${jenkins_build_user_email}"
 echo "userName: ${cause.userName}"
 echo "jenkins_build_user_email: ${jenkins_build_user_email}"
+
 def jobUrl = env.JOB_URL
 def jobName = env.JOB_NAME
+
 println "jenkinsUrl: ${jenkinsUrl}"
 println "jobUrl: ${jobUrl}"
 println "jobName: ${jobName}"
+
 def jobDescription = jobUrl
 def redColor = 'red' // Color variable Red
 def greenColor = 'green' // Color variable Green
@@ -36,6 +46,7 @@ def email_to = "${jenkins_build_user_email}"
 def email_cc = "swatantra.srivastava@advatix.com"
 def email_bcc = "swatantra.srivastava@advatix.com"
 def webhook_url = "https://advatix1.webhook.office.com/webhookb2/87b0cd1f-00b1-42bc-8600-c7428f884919@42ece415-7f11-4b12-ad5d-a5b2a9a75839/JenkinsCI/c0f01557dd7f4012a9efeb7be7a90480/ca2853c7-42f9-477d-b599-0082b5ae0e3c"
+
 pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
@@ -43,7 +54,7 @@ pipeline {
     }
     agent any
     environment {
-        PATH = "C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/apache-jmeter-5.6.3/bin"
+        PATH = "C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/load_testing1/apache-jmeter-5.6.3/bin;${env.PATH}"
     }
     tools {
         nodejs "node"
@@ -51,11 +62,11 @@ pipeline {
     stages {
         stage('LOAD TESTING') {
             steps {
-                bat "echo %CD%"
-                bat "npm cache clean --force"
-                bat 'node --version'
-                bat 'npm i'
                 script {
+                    bat "echo %CD%"
+                    bat "npm cache clean --force"
+                    bat 'node --version'
+                    bat 'npm i'
                     try {
                         bat 'npm run load_testing_acs2' // Update %Script% to the actual script name
                     } catch (err) {
@@ -99,3 +110,4 @@ pipeline {
         }
     }
 }
+
