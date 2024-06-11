@@ -43,7 +43,7 @@ pipeline {
     }
     agent any
     environment {
-        PATH = "C:/Users/SwatantraKSrivastava/OneDrive - Advatix/Desktop/load_testing/apache-jmeter-5.6.3/bin"
+        PATH = "apache-jmeter-5.6.3/bin"
     }
     tools {
         nodejs "node"
