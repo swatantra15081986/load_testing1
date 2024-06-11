@@ -174,7 +174,7 @@
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="thread_outbound">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.num_threads">100</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -571,49 +571,7 @@
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="create_pick_up_task_retry">
-          <stringProp name="scriptLanguage">groovy</stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="script">import org.apache.jmeter.samplers.SampleResult
-import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy
-
-int maxRetries = 3; // अधिकतम retry की संख्या
-int retries = 0; // वर्तमान retry की गिनती
-boolean success = false;
-
-while (retries &lt; maxRetries &amp;&amp; !success) {
-    // &apos;create_pick_up_task&apos; सैंपलर प्राप्त करें
-    HTTPSamplerProxy samplerProxy = ctx.getCurrentSampler() as HTTPSamplerProxy;
-
-    // सैंपलर को निष्पादित करें
-    SampleResult result = samplerProxy.sample();
-
-    // HTTP स्टेटस कोड प्राप्त करें
-    int responseCode = result.getResponseCode().toInteger();
-
-    if (responseCode == 200) {
-        // सफल
-        success = true;
-    } else {
-        // असफल, retry बढ़ाएँ
-        retries++;
-    }
-
-    // सैंपलर के परिणाम को रिकॉर्ड करें
-    prev.setResponseData(result.getResponseData());
-    prev.setResponseCode(result.getResponseCode());
-    prev.setResponseMessage(result.getResponseMessage());
-    prev.setSuccessful(result.isSuccessful());
-}
-
-// retryCount को सेट करें ताकि आप इसे कहीं और उपयोग कर सकें
-vars.put(&quot;retryCount&quot;, String.valueOf(retries));
-</stringProp>
-        </JSR223Sampler>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="create_pick_up_task">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="create_pick_up_task&apos;/wave/api/v1/pickup/createPickupTasks?isSingleContainer=1&apos;" enabled="false">
           <stringProp name="HTTPSampler.domain">${base_url}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/wave/api/v1/pickup/createPickupTasks?isSingleContainer=1</stringProp>
@@ -637,10 +595,10 @@ vars.put(&quot;retryCount&quot;, String.valueOf(retries));
         </HTTPSamplerProxy>
         <hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
-            <stringProp name="ConstantTimer.delay">60000</stringProp>
+            <stringProp name="ConstantTimer.delay">1</stringProp>
           </ConstantTimer>
           <hashTree/>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_pickup_task" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="header_pickup_task">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="AUTH-TOKEN" elementType="Header">
                 <stringProp name="Header.name">AUTH-TOKEN</stringProp>
@@ -663,10 +621,10 @@ vars.put(&quot;retryCount&quot;, String.valueOf(retries));
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="0"></stringProp>
+              <stringProp name="49586">200</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
@@ -823,7 +781,7 @@ vars.put(&quot;retryCount&quot;, String.valueOf(retries));
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
