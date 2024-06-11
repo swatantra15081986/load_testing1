@@ -52,15 +52,8 @@ pipeline {
                 bat "echo %CD%"
                     bat "echo %CD%"
                     bat "npm cache clean --force"
-                    bat "node utilities/delete-cucumber-json.js"
-                    bat 'node utilities/delete-video.js'
-                    bat 'node utilities/delete-report.js'
-                    //bat 'node delete-node_modules.js'
-                    bat 'node utilities/delete-package-lock.js'
                     bat 'node --version'
                     bat 'npm i'
-                    bat 'node utilities/create-cucumber-json.js'
-                    bat 'node utilities/create-report.js'
                     script {
                         try {
                             bat 'npm run %Script%'
@@ -69,8 +62,6 @@ pipeline {
                             echo "Some test cases are getting Failed"
                         }
                     }
-                    bat 'node utilities/cucumber-html-report.js'
-                    bat 'node utilities/multiple-cucumber-html-report.js'
                 }
             }
 
